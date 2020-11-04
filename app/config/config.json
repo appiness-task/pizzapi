@@ -1,0 +1,47 @@
+{
+  "app": {
+    "host": "localhost",
+    "port": 3050
+  },
+  "PASSWORD_LENGTH": 8,
+  "PASSWORD_SALT": 10,
+
+  "successStatus"     : 200,
+  "clientErrorStatus" : 401,
+  "reqBodyErrorStatus": 400,
+  "serverErrorStatus" : 500,
+  "unauthStatus"      : 500,
+  "tokenExpStatus"    : 505,
+  "serverErrorMsg"    : "Internal Server Error",
+  "addedMsg"          : "added successfully",
+  "updatedMsg"        : "updated successfully",
+  "deletedMsg"        : "deleted successfully",
+  "restoredMsg"       : "restored successfully",
+  "unauthMsg"         : "Unauthorized",
+  "tokenExpMsg"       : "Token Expired",
+
+  "database": "mongodb://127.0.0.1:27017/pizzapi",
+
+  "smtp": {
+    "host": "",
+    "port": 587,
+    "secure": false,
+    "requireTLS": true,
+    "auth": {
+      "user": "",
+      "pass": ""
+    }
+  },
+  "paypal":{
+    "sandbox":{
+      "mode": "sandbox",
+      "client_id": "",
+      "client_secret": "" 
+    },
+    "live":{
+      "mode": "live",
+      "client_id": "1235",
+      "client_secret": "1234" 
+    }
+  }
+}
