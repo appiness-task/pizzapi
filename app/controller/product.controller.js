@@ -4,44 +4,61 @@ const shared = require("../_helper/shared");
 const MongoId = require("mongoose").Types.ObjectId
 const { validateMongoId } = require("../_helper/shared")
 
+
+const Product = require('../model/model').Products;
+
 /**
  * GET ALL CATEGORY
  */
-exports.getAllCategory = async (req,res) => {
+exports.getAllProducts = async (req, res) => {
   try {
-   response.added(res)
+    let productList = await Product.find({})
+    if (productList) {
+      response.json(res, productList)
+    }
+  } catch (e) {
+    console.log("*************", e);
+    return response.serverError(res);
+  }
+}
+
+exports.addProduct = async (req, res) => {
+  try {
+    let { name, price, openstock, currency, category_id } = req.body;
+    let newProduct = new Product({
+      name,
+      price,
+      openstock,
+      currency,
+      category_id
+    })
+    let result = await newProduct.save();
+    if (result) {
+      response.json(res,result)
+    }
   } catch (e) {
     console.log(e);
     return response.serverError(res);
   }
 }
 
-exports.createCategory = async (req,res) => {
+
+exports.updateProduct = async (req, res) => {
   try {
     response.added(res)
-   } catch (e) {
-     console.log(e);
-     return response.serverError(res);
-   }
+  } catch (e) {
+    console.log(e);
+    return response.serverError(res);
+  }
 }
 
-
-exports.updateCategory = async (req,res) => {
+exports.deleteProduct = async (req, res) => {
   try {
     response.added(res)
-   } catch (e) {
-     console.log(e);
-     return response.serverError(res);
-   }
-}
-
-exports.deleteCategory = async (req,res) => {
-  try {
-    response.added(res)
-   } catch (e) {
-     console.log(e);
-     return response.serverError(res);
-   }
+  } catch (e) {
+    console.log(e);
+    return response.serverError(res);
+  }
 }
 
 

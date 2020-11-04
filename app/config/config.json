@@ -20,7 +20,7 @@
   "unauthMsg"         : "Unauthorized",
   "tokenExpMsg"       : "Token Expired",
 
-  "database": "mongodb://127.0.0.1:27017/pizzapi",
+  "database": "mongodb+srv://pizzapi:pizzapi@micro-18ilk.mongodb.net/pizzapp?retryWrites=true&w=majority",
 
   "smtp": {
     "host": "",
