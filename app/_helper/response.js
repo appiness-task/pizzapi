@@ -30,3 +30,7 @@ exports.successMsg = (res,msg) => {
 exports.json = (res,data)=>{
     res.status(con.successStatus).json(data||{})
 }
+
+exports.success = (res)=>{
+    res.status(con.successStatus)
+}

@@ -6,6 +6,8 @@ const { validateMongoId } = require("../_helper/shared")
 
 const Category = require('../model/model').Category
 const Product = require('../model/model').Products
+
+
 /**
  * GET ALL CATEGORY
  */
@@ -21,6 +23,7 @@ exports.getAllCategory = async (req, res) => {
   }
 }
 
+// Create New Category
 exports.createCategory = async (req, res) => {
   try {
 
@@ -36,7 +39,7 @@ exports.createCategory = async (req, res) => {
     let result = await newCategory.save();
     console.log(result);
     if (result) {
-      response.added(res)
+      response.json(res, result)
     }
   } catch (e) {
     console.log(e);
@@ -54,12 +57,11 @@ exports.updateCategory = async (req, res) => {
   }
 }
 
-// Remove category and curresponding products
+// Remove category
 exports.deleteCategory = async (req, res) => {
   try {
     let { category_id } = req.query;
     let deletedCategory = await Category.deleteOne({ _id: new MongoId(category_id) })
-
     response.json(res, deletedCategory)
   } catch (e) {
     console.log(e);
@@ -68,10 +70,43 @@ exports.deleteCategory = async (req, res) => {
 }
 
 
-// Get Products by Category_id
+// Get category along with product count and product list
 exports.getProductByCategory = async (req, res) => {
   try {
-    response.added(res)
+    let allProducts = await Category.aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "category_id",
+          as: "list"
+        }
+      }, {
+        $unwind: {
+          path: "$list",
+          preserveNullAndEmptyArrays: false
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          description: 1,
+          products: "$list"
+        }
+      },
+      {
+        $group: {
+          _id: "$_id",
+          count: { $sum: 1 },
+          name: { $first: "$name" },
+          description: { $first: "$description" },
+          products: { $push: "$products" }
+        }
+      }
+    ])
+    if(allProducts){
+      response.json(res,allProducts)
+    }
   } catch (e) {
     return response.serverError(res);
   }

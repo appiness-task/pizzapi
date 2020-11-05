@@ -8,7 +8,7 @@ const { validateMongoId } = require("../_helper/shared")
 const Product = require('../model/model').Products;
 
 /**
- * GET ALL CATEGORY
+ * GET ALL Products
  */
 exports.getAllProducts = async (req, res) => {
   try {
@@ -22,6 +22,7 @@ exports.getAllProducts = async (req, res) => {
   }
 }
 
+// Add new Product
 exports.addProduct = async (req, res) => {
   try {
     let { name, price, openstock, currency, category_id } = req.body;
@@ -45,7 +46,7 @@ exports.addProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    response.added(res)
+    response.success(res)
   } catch (e) {
     console.log(e);
     return response.serverError(res);
@@ -54,7 +55,7 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    response.added(res)
+    response.success(res)
   } catch (e) {
     console.log(e);
     return response.serverError(res);

@@ -9,9 +9,11 @@ exports.connect = async () => {
     const config = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
+      useFindAndModify: false
     }
     console.log("Loading: Mongo Connection");
+    
     await mongoose.connect(connectionString, config)
     console.log("Connected to database")
 

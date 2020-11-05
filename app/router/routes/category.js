@@ -6,4 +6,6 @@ router.get('/', categoryController.getAllCategory)
     .put('/', categoryController.updateCategory)
     .delete('/', categoryController.deleteCategory)
 
+router.get('/all',categoryController.getProductByCategory)
+
 module.exports = router
